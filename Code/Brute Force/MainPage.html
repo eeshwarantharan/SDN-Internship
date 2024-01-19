@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            color: #333;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            width: 100px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <input type="text" id="passwordInput" placeholder="Enter 3-digit password">
+        <br>
+        <button onclick="login()">Submit</button>
+        <p id="message" style="color: red;"></p>
+    </div>
+
+    <script>
+        function login() {
+            var password = document.getElementById("passwordInput").value;
+            if (password.length === 3 && !isNaN(password)) {
+                if (password === "123") { //Password
+                    window.location.href = "success.html";
+                } else {
+                    document.getElementById("message").textContent = "Incorrect password. Try again.";
+                }
+            } else {
+                document.getElementById("message").textContent = "Please enter a 3-digit number.";
+            }
+        }
+    </script>
+    <script>
+        let count = 1;
+        let interval = setInterval(() => {
+        if (count < 1000) {
+            let passwordInput = document.getElementById("passwordInput");
+            passwordInput.value = '';
+            passwordInput.value = count;
+            let loginButton = Array.from(document.querySelectorAll('button')).find(btn => btn.textContent === 'Submit');
+            if (loginButton) {
+                loginButton.click();
+            }
+            count++;
+        } else {
+            clearInterval(interval);
+        }
+        }, 100);
+    </script>
+</body>
+</html>
