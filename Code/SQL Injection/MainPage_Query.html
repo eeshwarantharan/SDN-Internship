@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            color: #333;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            width: 100px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <input type="text" id="passwordInput" placeholder="Enter password">
+        <br>
+        <button onclick="login()">Submit</button>
+        <p id="message" style="color: red;"></p>
+    </div>
+    <script>
+        let bool1 = [];
+        window.addEventListener('load', function () {
+            // Make an HTTP request to the server to get bool1
+            fetch("/getBool1?query='+OR+1=1--")
+                .then(response => response.json())
+                .then(data => {
+                    bool1 = data.bool1;
+                    // console.log("bool1 value from inline script:", bool1);
+                })
+                .catch(error => {
+                    console.error("Error fetching bool1:", error);
+                });
+        });
+
+        setTimeout(function () {
+            for (let i = 0; i < bool1.length; i++) {
+                bool1[i] = Number(bool1[i]);
+            };
+            // console.log(bool1);
+        }, 1000);
+
+        function login() {
+            let password = document.getElementById("passwordInput").value;
+            if (!isNaN(password)) {
+                if (bool1.includes(Number(password))) { //Password
+                    window.location.href = `http://localhost:8080/success.html`;
+                    console.log("SUCCESS");
+                } else {
+                    document.getElementById("message").textContent = "Incorrect password. Try again.";
+                }
+            } else {
+                document.getElementById("message").textContent = "Please enter a valid number.";
+            }
+        }
+    </script>
+</body>
+
+</html>
